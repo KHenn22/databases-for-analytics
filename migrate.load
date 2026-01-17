@@ -1,0 +1,9 @@
+LOAD DATABASE
+     FROM mysql://kevin.hennelly:KHhy@TC&FSS2@127.0.0.1/world
+     INTO postgresql:///world
+
+ WITH include drop, create tables, create indexes, reset sequences;
+
+
+
+
