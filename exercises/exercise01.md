@@ -27,7 +27,11 @@
 Why were these data types selected?
 
 ### Answer
-_Write your explanation here._
+`country.Population` is stored as an integer data type since population values represent whole-number counts of people and do not require fractional precision.
+
+`country.LifeExpectancy` is stored as a decimal data type because life expectancy represents an average value that may include fractional years (for example, 72.6 years).
+
+These types were selected to accurately represent the nature of the data while maintaining proper precision and efficient storage
 
 ### Screenshot
 _Show the table structure or DESCRIBE output._
@@ -36,7 +40,7 @@ _Show the table structure or DESCRIBE output._
 DESCRIBE country;
 ```
 
-![Q1 Screenshot](screenshots/q1_datatypes.png)
+![Q1 Screenshot](![Q1 Screenshot](image.png))
 
 ---
 
@@ -46,7 +50,13 @@ DESCRIBE country;
 Why do you think this data type was selected?
 
 ### Answer
-_Write your explanation here._
+The data type of `country.IndepYear` is `smallint`.
+
+Selected because independence years are four-digit calendar years
+that fall well within the numeric range supported by `SMALLINT`. Using `SMALLINT`
+requires less storage than `INT` but still accurately represents historical
+year values, and it allows `NULL` values for countries that do not have an
+independence year.
 
 ### Screenshot
 
@@ -54,7 +64,7 @@ _Write your explanation here._
 DESCRIBE country;
 ```
 
-![Q2 Screenshot](screenshots/q2_indepyear.png)
+![Q2 Screenshot](![Q2 Screenshot](image-1.png))
 
 ---
 
@@ -64,7 +74,10 @@ DESCRIBE country;
 Explain why your proposed data type might be better in some situations.
 
 ### Answer
-_Write your explanation here._
+An alternative data type for `country.IndepYear` could be `YEAR`.
+
+Using the `YEAR` data type is useful when the column represents solely a calendar
+year. It provides clearer meaning, improves readability, and enforces valid year values at the database level. In systems that perform frequent date-based calculations or comparisons, `YEAR` can also simplify queries and reduce the likelihood of invalid or inconsistent data.
 
 ---
 
@@ -82,7 +95,7 @@ ORDER BY Name;
 
 ### Screenshot
 
-![Q4 Screenshot](screenshots/q4_cities_sorted.png)
+![Q4 Screenshot]([Q4 Screenshot](image-2.png))
 
 ---
 
@@ -100,7 +113,7 @@ ORDER BY GovernmentForm;
 
 ### Screenshot
 
-![Q5 Screenshot](screenshots/q5_government_forms.png)
+![Q5 Screenshot](![Q5 Screenshot](image-3.png))
 
 ---
 
@@ -118,7 +131,7 @@ WHERE Continent = 'Oceania';
 
 ### Screenshot
 
-![Q6 Screenshot](screenshots/q6_oceania.png)
+![Q6 Screenshot](![Q6 Screenshot](image-4.png))
 
 ---
 
@@ -153,7 +166,7 @@ WHERE Name = 'Nashville-Davidson';
 
 ### Screenshot
 
-![Q8 Screenshot](screenshots/q8_update_city.png)
+![Q8 Screenshot](![Q8 Screenshot](image-5.png))
 
 ---
 
@@ -171,7 +184,7 @@ VALUES ('NAR', 'Narnia', 'Europe', 'Fantasy', 1000000);
 
 ### Screenshot
 
-![Q9 Screenshot](screenshots/q9_insert_narnia.png)
+![Q9 Screenshot](![Q9 Screenshot](image-6.png))
 
 ---
 
@@ -188,4 +201,4 @@ WHERE Code = 'NAR';
 
 ### Screenshot
 
-![Q10 Screenshot](screenshots/q10_delete_narnia.png)
+![Q10 Screenshot](![Q10 screenshot](image-7.png))
