@@ -116,12 +116,14 @@ Do **not** repeat any form of government more than once.
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT DISTINCT government_form
+FROM country
+ORDER BY government_form;
 ```
 
 ### Screenshot
 
-![Q5 Screenshot](screenshots/q5_government_forms.png)
+![Q5 Screenshot](image-12.png)
 
 ---
 
@@ -133,12 +135,17 @@ Label the column **"City or Country Name"**.
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT name AS "City or Country Name"
+FROM city
+UNION
+SELECT name
+FROM country
+ORDER BY "City or Country Name";
 ```
 
 ### Screenshot
 
-![Q6 Screenshot](screenshots/q6_union_city_country.png)
+![Q6 Screenshot](image-13.png)
 
 ---
 
@@ -150,12 +157,22 @@ Be sure to **sort by country name**.
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+  c.name AS "Country Name",
+  COUNT(cl.language) AS "Number of Languages"
+FROM country c
+LEFT JOIN country_language cl
+  ON cl.country_code = c.code
+GROUP BY c.name
+ORDER BY c.name;
+
+
+
 ```
 
 ### Screenshot
 
-![Q7 Screenshot](screenshots/q7_language_count_by_country.png)
+![Q7 Screenshot](image-15.png)
 
 ---
 
@@ -167,12 +184,17 @@ Be sure to **sort by language name**.
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+  language AS "Language",
+  COUNT(country_code) AS "Number of Countries"
+FROM country_language
+GROUP BY language
+ORDER BY language;
 ```
 
 ### Screenshot
 
-![Q8 Screenshot](screenshots/q8_language_country_count.png)
+![Q8 Screenshot](image-14.png)
 
 ---
 
@@ -185,12 +207,21 @@ Using the World database, write the SQL command to **list countries that have mo
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+  c.name AS "Country Name",
+  COUNT(cl.language) AS "Number of Official Languages"
+FROM country c
+JOIN country_language cl
+  ON cl.country_code = c.code
+WHERE cl.is_official = 'T'
+GROUP BY c.name
+HAVING COUNT(cl.language) > 2
+ORDER BY c.name;
 ```
 
 ### Screenshot
 
-![Q9 Screenshot](screenshots/q9_multiple_official_languages.png)
+![Q9 Screenshot](image-16.png)
 
 ---
 
@@ -203,12 +234,16 @@ Using the World database, write the SQL command to **find cities where the distr
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+  name AS "City Name",
+  district
+FROM city
+WHERE district LIKE '%-%';
 ```
 
 ### Screenshot
 
-![Q10 Screenshot](screenshots/q10_missing_districts.png)
+![Q10 Screenshot](image-17.png)
 
 ---
 
@@ -221,9 +256,15 @@ Using the World database, write the SQL command to **calculate the percentage of
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+  ROUND(
+    100.0 * COUNT(*) / (SELECT COUNT(*) FROM city),
+    2
+  ) AS "Missing District Percentage"
+FROM city
+WHERE TRIM(district) = '–';
 ```
 
 ### Screenshot
 
-![Q11 Screenshot](screenshots/q11_missing_district_percentage.png)
+![Q11 Screenshot](image-18.png)
