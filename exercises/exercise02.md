@@ -1,6 +1,6 @@
 # Exercise 02: World Database – Joins, Grouping, and Data Quality
 
-- Name:
+- Name: Kevin Hennelly
 - Course: Database for Analytics
 - Module: 2
 - Database Used: World Database (PostgreSQL)
@@ -23,16 +23,18 @@
 When importing records from `worldPGSQL.sql`, **how many cities were imported**?
 
 ### Answer
-_Write the number of cities imported._
+4079
 
 ### Screenshot
-_Show evidence of how you determined this (for example, a COUNT query)._
+![Q21](image-8.png)
 
 ```sql
--- Your SQL here
+SELECT COUNT(*) AS cities_imported
+FROM city;
+ cities_imported 
 ```
 
-![Q1 Screenshot](screenshots/q1_city_count.png)
+![Q1 Screenshot](image-9.png)
 
 ---
 
@@ -43,12 +45,18 @@ Using the World database, write the SQL command to **display each country name a
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+  c.name AS country_name,
+  cl.language AS language
+FROM country c
+JOIN country_language cl
+  ON c.code = cl.country_code
+ORDER BY c.name, cl.language;
 ```
 
 ### Screenshot
 
-![Q2 Screenshot](screenshots/q2_country_languages.png)
+![Q2 Screenshot](image-10.png)
 
 ---
 
@@ -59,12 +67,19 @@ Using the World database, write the SQL command to **display each country name a
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+    c.name AS country_name,
+    cl.language AS official_language
+FROM country c
+JOIN country_language cl
+    ON c.code = cl.country_code
+WHERE cl.is_official = true
+ORDER BY c.name, cl.language;
 ```
 
 ### Screenshot
 
-![Q3 Screenshot](screenshots/q3_official_languages.png)
+![Q3 Screenshot](image-11.png)
 
 ---
 
@@ -88,7 +103,8 @@ ON country.code = countrylanguage.countrycode;
 **In your own words**, describe what data the **second query returns that the first query does not**.
 
 ### Answer
-_Write your explanation here._
+
+The second query includes every country even those that do not have a matching language record, in which case the countrylanguage column comes back as NULL.  This differs from the first query which leaves those countries out completely.
 
 ---
 
