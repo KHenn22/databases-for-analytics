@@ -40,7 +40,7 @@ _Show the table structure or DESCRIBE output._
 DESCRIBE country;
 ```
 
-![Q1 Screenshot](![Q1 Screenshot](image.png))
+![Q1 Screenshot](![Q1 Screenshot](screenshots/image.png))
 
 ---
 
@@ -64,7 +64,7 @@ independence year.
 DESCRIBE country;
 ```
 
-![Q2 Screenshot](![Q2 Screenshot](image-1.png))
+![Q2 Screenshot](![Q2 Screenshot](screenshots/image-1.png))
 
 ---
 
@@ -95,7 +95,7 @@ ORDER BY Name;
 
 ### Screenshot
 
-![Q4 Screenshot]([Q4 Screenshot](image-2.png))
+![Q4 Screenshot]([Q4 Screenshot](screenshots/image-2.png))
 
 ---
 
@@ -113,7 +113,7 @@ ORDER BY GovernmentForm;
 
 ### Screenshot
 
-![Q5 Screenshot](![Q5 Screenshot](image-3.png))
+![Q5 Screenshot](![Q5 Screenshot](screenshots/image-3.png))
 
 ---
 
@@ -131,7 +131,7 @@ WHERE Continent = 'Oceania';
 
 ### Screenshot
 
-![Q6 Screenshot](![Q6 Screenshot](image-4.png))
+![Q6 Screenshot](![Q6 Screenshot](screenshots/image-4.png))
 
 ---
 
@@ -142,13 +142,13 @@ Write a SQL command to **list the names and country code of all cities**.
 ### SQL
 
 ```sql
-SELECT Name, CountryCode
+SELECT name, country_code
 FROM city;
 ```
 
 ### Screenshot
 
-![Q7 Screenshot](screenshots/q7_city_countrycode.png)
+![Q7 Screenshot](screenshots/image19.png)
 
 ---
 
@@ -166,7 +166,7 @@ WHERE Name = 'Nashville-Davidson';
 
 ### Screenshot
 
-![Q8 Screenshot](![Q8 Screenshot](image-5.png))
+![Q8 Screenshot](![Q8 Screenshot](screenshots/image-5.png))
 
 ---
 
@@ -184,7 +184,7 @@ VALUES ('NAR', 'Narnia', 'Europe', 'Fantasy', 1000000);
 
 ### Screenshot
 
-![Q9 Screenshot](![Q9 Screenshot](image-6.png))
+![Q9 Screenshot](![Q9 Screenshot](screenshots/image-6.png))
 
 ---
 
@@ -201,4 +201,4 @@ WHERE Code = 'NAR';
 
 ### Screenshot
 
-![Q10 Screenshot](![Q10 screenshot](image-7.png))
+![Q10 Screenshot](![Q10 screenshot](screenshots/image-7.png))

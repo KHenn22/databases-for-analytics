@@ -26,7 +26,7 @@ When importing records from `worldPGSQL.sql`, **how many cities were imported**?
 4079
 
 ### Screenshot
-![Q21](image-8.png)
+![Q21](screenshots/image-8.png)
 
 ```sql
 SELECT COUNT(*) AS cities_imported
@@ -34,7 +34,7 @@ FROM city;
  cities_imported 
 ```
 
-![Q1 Screenshot](image-9.png)
+![Q1 Screenshot](screesnhots/image-9.png)
 
 ---
 
@@ -56,7 +56,7 @@ ORDER BY c.name, cl.language;
 
 ### Screenshot
 
-![Q2 Screenshot](image-10.png)
+![Q2 Screenshot](screenshots/image-10.png)
 
 ---
 
@@ -79,7 +79,7 @@ ORDER BY c.name, cl.language;
 
 ### Screenshot
 
-![Q3 Screenshot](image-11.png)
+![Q3 Screenshot](screenshots/image-11.png)
 
 ---
 
@@ -123,7 +123,7 @@ ORDER BY government_form;
 
 ### Screenshot
 
-![Q5 Screenshot](image-12.png)
+![Q5 Screenshot](screenshots/image-12.png)
 
 ---
 
@@ -145,7 +145,7 @@ ORDER BY "City or Country Name";
 
 ### Screenshot
 
-![Q6 Screenshot](image-13.png)
+![Q6 Screenshot](screenshots/image-13.png)
 
 ---
 
@@ -172,7 +172,7 @@ ORDER BY c.name;
 
 ### Screenshot
 
-![Q7 Screenshot](image-15.png)
+![Q7 Screenshot](screenshots/image-15.png)
 
 ---
 
@@ -194,7 +194,7 @@ ORDER BY language;
 
 ### Screenshot
 
-![Q8 Screenshot](image-14.png)
+![Q8 Screenshot](screenshots/image-14.png)
 
 ---
 
@@ -221,7 +221,7 @@ ORDER BY c.name;
 
 ### Screenshot
 
-![Q9 Screenshot](image-16.png)
+![Q9 Screenshot](screenshots/image-16.png)
 
 ---
 
@@ -243,7 +243,7 @@ WHERE district LIKE '%-%';
 
 ### Screenshot
 
-![Q10 Screenshot](image-17.png)
+![Q10 Screenshot](screenshots/image-17.png)
 
 ---
 
@@ -267,4 +267,4 @@ WHERE TRIM(district) = '–';
 
 ### Screenshot
 
-![Q11 Screenshot](image-18.png)
+![Q11 Screenshot](screenshots/image-18.png)
