@@ -31,12 +31,21 @@ Considering the World database, write a SQL statement that will **display the na
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+    c.name AS country_name,
+    COUNT(*) AS official_language_count
+FROM country AS c
+JOIN countrylanguage AS cl
+  ON c.code = cl.countrycode
+WHERE cl.isofficial = 'T'
+GROUP BY c.name
+HAVING COUNT(*) > 2
+ORDER BY official_language_count DESC, country_name;
 ```
 
 ### Screenshot
 
-![Q1 Screenshot](screenshots/q1_official_language_counts.png)
+![Q1 Screenshot](screenshots/official_language_count.png)
 
 ---
 
@@ -49,12 +58,29 @@ After the `create_engine` command is executed, **what are the three statements r
 ### Python Code
 
 ```python
-# Your three Python statements here
+#1
+query = """
+SELECT c.name AS country_name, COUNT(*) AS official_language_count
+FROM country c
+JOIN countrylanguage cl ON c.code = cl.countrycode
+WHERE cl.isofficial = 'T'
+GROUP BY c.name
+HAVING COUNT(*) > 2
+ORDER BY official_language_count DESC, country_name;
+"""
+#2
+df = pandas.read_sql(query, engine)
+
+#this was added so the count began on 1 instead of 0 for easier clarity
+df.index = df.index + 1
+
+#3
+df
 ```
 
 ### Screenshot
 
-![Q2 Screenshot](screenshots/q2_jupyter_query_results.png)
+![Q2 Screenshot](screenshots/q2_jupyter_query.png)
 
 ---
 
@@ -69,7 +95,21 @@ Using **Jupyter Notebooks**, write the Python code needed to produce the followi
 ### Python Code
 
 ```python
-# Your Python code here
+plt.figure(figsize=(10, 6))
+
+plt.bar(
+    df["country_name"],
+    df["official_language_count"]
+)
+
+plt.title("Countries with More Than Two Official Languages")
+plt.xlabel("Country")
+plt.ylabel("Number of Official Languages")
+
+plt.xticks(rotation=45, ha="right")
+
+plt.tight_layout()
+plt.show()
 ```
 
 ### Screenshot
