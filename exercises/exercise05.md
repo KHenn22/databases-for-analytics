@@ -1,10 +1,10 @@
 # Exercise 05: SQLDA Database - Dates, Data Quality, Arrays, and JSON
 
-- Name:
+- Name: Kevin Hennelly 
 - Course: Database for Analytics
-- Module:
+- Module: Module 5
 - Database Used:  `sqlda` (Sample Datasets)
-- Tools Used: PostgreSQL (pgAdmin or psql)
+- Tools Used: PostgreSQL (pgAdmin and psql)
 
 ---
 
@@ -42,7 +42,10 @@ year
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT DISTINCT
+    EXTRACT(YEAR FROM sent_date)::int AS year
+FROM emails
+ORDER BY year;
 ```
 
 ### Screenshot
@@ -65,12 +68,17 @@ count   year
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+    COUNT(*) AS count,
+    EXTRACT(YEAR FROM sent_date)::int AS year
+FROM emails
+GROUP BY year
+ORDER BY year;
 ```
 
 ### Screenshot
 
-![Q2 Screenshot](screenshots/q2_message_count_by_year.png)
+![Q2 Screenshot](screenshots/q2_messages_by_year.png)
 
 ---
 
@@ -86,7 +94,14 @@ Only include emails that contain **both** a sent date and an opened date.
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+    sent_date,
+    opened_date,
+    opened_date - sent_date AS interval
+FROM emails
+WHERE sent_date IS NOT NULL
+  AND opened_date IS NOT NULL
+ORDER BY sent_date;
 ```
 
 ### Screenshot
@@ -102,7 +117,15 @@ Using the `sqlda` database, write the SQL needed to show emails that contain an 
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+    sent_date,
+    opened_date,
+    opened_date - sent_date AS interval
+FROM emails
+WHERE sent_date IS NOT NULL
+  AND opened_date IS NOT NULL
+  AND opened_date < sent_date
+ORDER BY sent_date;
 ```
 
 ### Screenshot
@@ -119,11 +142,11 @@ After looking at the data, **why is this the case?**
 
 ### Answer
 
-_Write your explanation here._
+My assumption is that the original data for the sent emails was only a date.  Since all sent emails from this query are 1500, I assume it was a default time added to data that wasn't originally saved with a time.  This most likely explains how an email could show opened before sent in a database.  
 
 ### Screenshot (if requested by instructor)
 
-![Q5 Screenshot](screenshots/q5_explain_date_issue.png)
+![Q5 Screenshot](screenshots/q5_opened_before_sent.png)
 
 ---
 
@@ -160,7 +183,7 @@ CREATE TEMP TABLE customer_dealership_distance AS (
 
 ### Answer
 
-_Write your explanation here._
+It creates temporary tables for calculating distances between customers and dealerships.  It begins by converting lat/long information into a geographic point for each customer (excluding customers missing coordinates) and dealership.  Next, it cross joins the customers to the dealerships and calculates the distance between the pairs.  Since it's temporary, the data only exists for the current session and does not become a permanent table in the database. 
 
 ---
 
@@ -177,12 +200,20 @@ For example - dealership 1 is below:
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+    dealership_id,
+    ARRAY_AGG(
+        last_name || ',' || first_name
+        ORDER BY last_name, first_name
+    ) AS salespeople
+FROM salespeople
+GROUP BY dealership_id
+ORDER BY dealership_id;
 ```
 
 ### Screenshot
 
-![Q7 Screenshot](screenshots/q7_salespeople_array_by_dealership.png)
+![Q7 Screenshot](screenshots/q7_dealership_salespeople.png)
 
 ---
 
@@ -202,12 +233,24 @@ Reference image:
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT
+    d.dealership_id,
+    d.state,
+    COUNT(*) AS count,
+    ARRAY_AGG(
+        s.last_name || ',' || s.first_name
+        ORDER BY s.last_name, s.first_name
+    ) AS array_agg
+FROM dealerships d
+JOIN salespeople s
+  ON s.dealership_id = d.dealership_id
+GROUP BY d.dealership_id, d.state
+ORDER BY d.state, d.dealership_id;
 ```
 
 ### Screenshot
 
-![Q8 Screenshot](screenshots/q8_salespeople_array_state_count.png)
+![Q8 Screenshot](screenshots/q8_exercise_array.png)
 
 ---
 
@@ -218,7 +261,8 @@ Using the `sqlda` database, write the SQL needed to convert the **customers** ta
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT row_to_json(c) AS customer_json
+FROM customers c;
 ```
 
 ### Screenshot
@@ -244,9 +288,26 @@ Reference image:
 ### SQL
 
 ```sql
--- Your SQL here
+SELECT jsonb_pretty(
+  jsonb_agg(to_jsonb(t))
+)
+FROM (
+  SELECT
+    d.dealership_id,
+    d.state,
+    COUNT(s.salesperson_id) AS num_salespeople,
+    ARRAY_AGG(
+      s.last_name || ',' || s.first_name
+      ORDER BY s.last_name, s.first_name
+    ) AS array_agg
+  FROM dealerships d
+  JOIN salespeople s
+    ON s.dealership_id = d.dealership_id
+  GROUP BY d.dealership_id, d.state
+  ORDER BY d.state, d.dealership_id
+) t;
 ```
 
 ### Screenshot
 
-![Q10 Screenshot](screenshots/q10_salespeople_array_to_json.png)
+![Q10 Screenshot](screenshots/q10_exercise_arrays.png)
