@@ -1,7 +1,7 @@
 # Module 6 - Exercise 1: Creating a Data Warehouse
 From the Operational Model to the Dimensional Model
 
-- Name:
+- Name: Kevin Hennelly
 - Course: Database for Analytics
 - Module: 6
 
@@ -107,7 +107,7 @@ Save your diagram image in this repo and embed it below.
 
 #### Diagram
 
-![Star Schema Diagram](star-schema.png)
+![Star Schema Diagram](screenshots/star_schema.png)
 
 ---
 
@@ -121,4 +121,8 @@ In 1-2 short paragraphs, explain:
 
 #### Design Notes
 
-_Write your design notes here._
+### Design Notes
+
+I modeled the data warehouse using a star schema with a single fact table representing daily customer sales. Each record in the fact table summarizes total sales for a specific customer and product on a given date. The fact table stores aggregated measures for total quantity sold and total sales amount.
+
+I selected Date, Customer, and Part as the dimensions in this model to support the required analytics. The Date dimension enables analysis across days, months, quarters, and years. The Customer dimension supports customer-level and geographic analysis. The Part dimension supports analysis at the product and category levels.
